@@ -2,33 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Photo Formation Finder</title>
-  <link rel="manifest" href="manifest.json" />
 
   <!-- iPhone Home Screen Support -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="Formation Tool">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Formation Tool" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png" />
+
+  <!-- Safari and Chrome color for status bar -->
+  <meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: dark)" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-    html {
-      background-color: #0f172a;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
-      z-index: -1;
-    }
-
     body {
       margin: 0;
+      padding-top: env(safe-area-inset-top);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
       box-sizing: border-box;
       overflow-x: hidden;
       font-family: 'Montserrat', sans-serif;
@@ -37,7 +32,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: 1.5rem 1rem;
+      padding-bottom: 2rem;
       min-height: 100vh;
     }
 
@@ -109,8 +104,13 @@
       color: #ffffff;
       white-space: pre-line;
       line-height: 2.5;
-      text-decoration-color: white;
-      text-decoration-thickness: auto;
+      text-decoration: none;
+    }
+
+    .underline {
+      text-decoration: underline;
+      text-decoration-color: #ffffff;
+      text-underline-offset: 3px;
     }
 
     .add-to-home {
@@ -122,7 +122,7 @@
     }
 
     .add-to-home img {
-      height: 1.0em;
+      height: 1em;
       vertical-align: middle;
       margin: 0 4px;
     }
@@ -135,7 +135,6 @@
     }
   </style>
 </head>
-<meta name="format-detection" content="telephone=no" />
 <body>
   <img src="Leading Image drop shadow.png" alt="Leading Image Logo" class="logo" />
 
@@ -193,24 +192,24 @@
       const resultEl = document.getElementById('result');
 
       if (!count) {
-        resultEl.innerHTML = '<u>All Standing</u>';
+        resultEl.innerHTML = `<span class="underline">Please enter a valid number</span>`;
         return;
       }
 
       if (count <= 8) {
-        resultEl.innerHTML = '<u>All Standing</u>';
+        resultEl.innerHTML = `<span class="underline">All Standing</span>`;
         return;
       }
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        resultEl.innerHTML = `<u>${formation.length} Rows</u>\nFormation: ${formation.join(' - ')}`;
+        resultEl.innerHTML = `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
         return;
       }
 
       const rowCount = getRowCount(count);
       if (!rowCount) {
-        resultEl.innerText = 'Please enter a number between 9 and 161+';
+        resultEl.innerHTML = `<span class="underline">Please enter a number between 9 and 161+</span>`;
         return;
       }
 
@@ -238,8 +237,7 @@
         scanIns = count - total;
       }
 
-      resultEl.innerHTML =
-        `<u>${rowCount} Rows</u>\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      resultEl.innerHTML = `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
     }
   </script>
 </body>
