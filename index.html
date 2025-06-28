@@ -122,7 +122,7 @@
     }
   </style>
 </head>
-  <meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="telephone=no" />
 <body>
   <img src="Leading Image drop shadow.png" alt="Leading Image Logo" class="logo" />
 
@@ -140,11 +140,12 @@
   </div>
 
   <div class="add-to-home">
-  <div>📱 To add this tool to your iPhone home screen:</div>
-  <div style="margin-top: 0.1rem;">
-    Tap <strong>Share</strong>
-    <img src="share-icon.png" alt="Share icon" style="height: 1.3em; vertical-align: text-bottom; margin: 0 6px;">
-    then choose <strong>"Add to Home Screen"</strong>.
+    <div>📱 To add this tool to your iPhone home screen:</div>
+    <div style="margin-top: 0.1rem;">
+      Tap <strong>Share</strong>
+      <img src="share-icon.png" alt="Share icon" style="height: 1.3em; vertical-align: text-bottom; margin: 0 6px;">
+      then choose <strong>"Add to Home Screen"</strong>.
+    </div>
   </div>
 
   <footer>Made by Lachlan Inns</footer>
@@ -186,7 +187,7 @@
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
         resultEl.innerText =
-          ${formation.length} Rows\nFormation: ${formation.join(' - ')};
+          `${formation.length} Rows\nFormation: ${formation.join(' - ')}`;
         return;
       }
 
@@ -221,7 +222,7 @@
       }
 
       const resultText =
-        ${rowCount} Rows\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay};
+        `${rowCount} Rows\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
       resultEl.innerText = resultText;
     }
   </script>
