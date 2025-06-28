@@ -10,10 +10,11 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Formation Tool">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="Leading Image drop shadow.png">
+  <link rel="apple-touch-icon" href="homescreenimage.png">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
     body {
       margin: 0;
       background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
@@ -28,11 +29,13 @@
       padding: 1.5rem 1rem;
       min-height: 100vh;
     }
+
     .logo {
       width: 180px;
       max-width: 80%;
       margin-bottom: 1.5rem;
     }
+
     .container {
       background: #1e293b;
       border-radius: 16px;
@@ -42,12 +45,14 @@
       max-width: 100%;
       text-align: center;
     }
+
     h1 {
       font-weight: 700;
       font-size: 1.5rem;
       margin-bottom: 1rem;
       color: #60a5fa;
     }
+
     input[type="number"] {
       width: 80%;
       padding: 0.6rem;
@@ -59,13 +64,16 @@
       margin-bottom: 0.7rem;
       background: #0f172a;
     }
+
     input[type="number"]::placeholder {
       color: #94a3b8;
     }
+
     input[type="number"]:focus {
       border-color: #60a5fa;
       background: #1e293b;
     }
+
     button {
       width: 80%;
       padding: 0.7rem;
@@ -77,17 +85,21 @@
       cursor: pointer;
       border-radius: 8px;
     }
+
     button:hover {
       background: #2563eb;
     }
+
     pre#result {
       margin-top: 1.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      white-space: pre-wrap;
-      color: #f8fafc;
-      line-height: 1.8;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #60a5fa;
+      white-space: pre-line;
+      line-height: 1.3;
+      letter-spacing: 0.03em;
     }
+
     .add-to-home {
       margin-top: 2rem;
       font-size: 0.85rem;
@@ -95,6 +107,7 @@
       text-align: center;
       max-width: 90%;
     }
+
     footer {
       margin-top: 2rem;
       font-size: 0.75rem;
@@ -163,7 +176,7 @@
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
         resultEl.innerText =
-          `Formation:\n\n${formation.length} rows\n${formation.join(' - ')}`;
+          `${formation.length} Rows\nFormation: ${formation.join(' - ')}`;
         return;
       }
 
@@ -198,7 +211,7 @@
       }
 
       const resultText =
-        `Formation:\n\n${rowCount} rows\n${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+        `${rowCount} Rows\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
       resultEl.innerText = resultText;
     }
   </script>
