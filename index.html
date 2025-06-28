@@ -97,7 +97,14 @@
       font-family: 'Montserrat', sans-serif;
       color: #ffffff;
       white-space: pre-line;
-      line-height: 3.0;
+      line-height: 2.5;
+    }
+
+    /* Underline style for rows count line */
+    .underline {
+      text-decoration: underline;
+      display: inline-block;
+      margin-bottom: 0.3em; /* some space below underline */
     }
 
     .add-to-home {
@@ -191,9 +198,10 @@
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
+        // Use a span with class underline for rows line
         const resultText =
-          `\u203E${formation.length} Rows\u203E\nFormation: ${formation.join(' - ')}`;
-        resultEl.innerText = resultText;
+          `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
+        resultEl.innerHTML = resultText;
         return;
       }
 
@@ -228,9 +236,10 @@
       }
 
       const resultText =
-        `\u203E${rowCount} Rows\u203E\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
-      resultEl.innerText = resultText;
+        `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      resultEl.innerHTML = resultText;
     }
   </script>
 </body>
 </html>
+
