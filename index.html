@@ -186,7 +186,7 @@
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
         resultEl.innerText =
-          ${formation.length} Rows\nFormation: ${formation.join(' - ')};
+          `${formation.length} Rows\nFormation: ${formation.join(' - ')}`;
         return;
       }
 
@@ -213,17 +213,5 @@
         high -= 1;
         low = high - 1;
         formation = [];
-        for (let i = 0; i < rowCount; i++) {
-          formation.push(i % 2 === 0 ? high : low);
-        }
-        total = formation.reduce((a, b) => a + b, 0);
-        scanIns = count - total;
-      }
+        for (let i =
 
-      const resultText =
-        ${rowCount} Rows\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay};
-      resultEl.innerText = resultText;
-    }
-  </script>
-</body>
-</html>
