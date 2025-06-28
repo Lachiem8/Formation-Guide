@@ -179,8 +179,13 @@
       const count = parseInt(document.getElementById('studentCount').value);
       const resultEl = document.getElementById('result');
 
-      if (!count || count < 9) {
-        resultEl.innerText = 'Please enter a number 9 or greater';
+      if (!count) {
+        resultEl.innerText = 'Please enter a valid number';
+        return;
+      }
+
+      if (count <= 8) {
+        resultEl.innerText = 'All Standing';
         return;
       }
 
