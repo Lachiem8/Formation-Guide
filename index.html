@@ -91,7 +91,7 @@
     }
 
     pre#result {
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
       font-size: 1rem;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
@@ -132,7 +132,7 @@
       type="number"
       inputmode="numeric"
       id="studentCount"
-      placeholder="Tap to enter amount of Subjects"
+      placeholder="Tap to enter number of staff/students"
       min="1"
     />
     <button onclick="calculateFormation()">Get Formation</button>
@@ -165,7 +165,6 @@
     };
 
     function getRowCount(count) {
-      if (count <= 9) return All Standing
       if (count >= 161) return 10;
       if (count >= 131) return 9;
       if (count >= 101) return 8;
@@ -187,7 +186,7 @@
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
         resultEl.innerText =
-          `${formation.length} Rows\nFormation: ${formation.join(' - ')}`;
+          ${formation.length} Rows\nFormation: ${formation.join(' - ')};
         return;
       }
 
@@ -214,5 +213,17 @@
         high -= 1;
         low = high - 1;
         formation = [];
-        for (let i =
+        for (let i = 0; i < rowCount; i++) {
+          formation.push(i % 2 === 0 ? high : low);
+        }
+        total = formation.reduce((a, b) => a + b, 0);
+        scanIns = count - total;
+      }
 
+      const resultText =
+        ${rowCount} Rows\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay};
+      resultEl.innerText = resultText;
+    }
+  </script>
+</body>
+</html>
