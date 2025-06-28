@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Photo Formation Finder</title>
   <link rel="manifest" href="manifest.json" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Formation Tool" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png" />
-  <meta name="format-detection" content="telephone=no" />
+
+  <!-- iPhone Home Screen Support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Formation Tool">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -17,14 +18,16 @@
     body {
       margin: 0;
       background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
+      box-sizing: border-box;
+      overflow-x: hidden;
       font-family: 'Montserrat', sans-serif;
       color: #f1f5f9;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
       padding: 1.5rem 1rem;
       min-height: 100vh;
-      box-sizing: border-box;
     }
 
     .logo {
@@ -88,7 +91,7 @@
     }
 
     pre#result {
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
       font-size: 1rem;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
@@ -119,7 +122,6 @@
     }
   </style>
 </head>
-
 <body>
   <img src="Leading Image drop shadow.png" alt="Leading Image Logo" class="logo" />
 
@@ -159,15 +161,16 @@
       34: [9, 8, 9, 8], 35: [9, 9, 9, 8], 36: [10, 9, 8, 9],
       37: [10, 9, 9, 9], 38: [10, 9, 10, 9], 39: [10, 9, 8, 7, 7],
       40: [10, 9, 8, 8, 8], 41: [9, 8, 7, 8, 9], 42: [10, 9, 8, 7, 8],
-      43: [10, 9, 8, 8, 8], 44: [10, 9, 8, 9, 8]
+      43: [10, 9, 8, 8, 8], 44: [10, 9, 8, 9, 8], 63: [11, 10, 11, 10, 11, 10]
     };
 
     function getRowCount(count) {
+      if (count === 63) return 6;
       if (count >= 161) return 10;
       if (count >= 131) return 9;
       if (count >= 101) return 8;
       if (count >= 80) return 7;
-      if (count >= 66 || count === 63) return 6;
+      if (count >= 66) return 6;
       if (count >= 45) return 5;
       return null;
     }
@@ -186,19 +189,11 @@
         return;
       }
 
-      // Special override for 63
-      if (count === 63) {
-        const formation = [11, 10, 11, 10, 11, 10];
-        resultEl.innerHTML =
-          `<u>${formation.length} Rows</u><br>Formation: ${formation.join(' - ')}<br><br>Scan In(s): 0<br><br>Average per row: 10.50`;
-        return;
-      }
-
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        const avg = (count / formation.length).toFixed(2);
-        resultEl.innerHTML =
-          `<u>${formation.length} Rows</u><br>Formation: ${formation.join(' - ')}<br><br>Scan In(s): 0<br><br>Average per row: ${avg}`;
+        const resultText =
+          `\u203E${formation.length} Rows\u203E\nFormation: ${formation.join(' - ')}`;
+        resultEl.innerText = resultText;
         return;
       }
 
@@ -232,8 +227,9 @@
         scanIns = count - total;
       }
 
-      resultEl.innerHTML =
-        `<u>${rowCount} Rows</u><br>Formation: ${formation.join(' - ')}<br><br>Scan In(s): ${scanIns}<br><br>Average per row: ${avgDisplay}`;
+      const resultText =
+        `\u203E${rowCount} Rows\u203E\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      resultEl.innerText = resultText;
     }
   </script>
 </body>
