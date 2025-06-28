@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Photo Formation Finder</title>
   <link rel="manifest" href="manifest.json" />
+
+  <!-- iPhone Home Screen Support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Formation Tool">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="Leading Image drop shadow.png">
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
     body {
@@ -38,13 +45,8 @@
     h1 {
       font-weight: 700;
       font-size: 1.5rem;
-      margin-bottom: 0.3rem;
+      margin-bottom: 1rem;
       color: #60a5fa;
-    }
-    .subheading {
-      font-size: 0.95rem;
-      color: #cbd5e1;
-      margin-bottom: 1.2rem;
     }
     input[type="number"] {
       width: 80%;
@@ -56,6 +58,9 @@
       color: #e2e8f0;
       margin-bottom: 0.7rem;
       background: #0f172a;
+    }
+    input[type="number"]::placeholder {
+      color: #94a3b8;
     }
     input[type="number"]:focus {
       border-color: #60a5fa;
@@ -75,13 +80,20 @@
     button:hover {
       background: #2563eb;
     }
-    #result {
-      margin-top: 1.2rem;
+    pre#result {
+      margin-top: 1.5rem;
       font-size: 1rem;
       font-weight: 600;
       white-space: pre-wrap;
       color: #f8fafc;
-      line-height: 1.6;
+      line-height: 1.8;
+    }
+    .add-to-home {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      text-align: center;
+      max-width: 90%;
     }
     footer {
       margin-top: 2rem;
@@ -92,16 +104,26 @@
   </style>
 </head>
 <body>
-  <!-- Updated logo at top -->
   <img src="Leading Image drop shadow.png" alt="Leading Image Logo" class="logo" />
 
   <div class="container">
     <h1>Group Photo Formation Tool</h1>
-    <div class="subheading">For Leading Image School Photos</div>
-    <input type="number" inputmode="numeric" id="studentCount" placeholder="Tap to Enter Number of Staff/Students" min="1" />
+    <input
+      type="number"
+      inputmode="numeric"
+      id="studentCount"
+      placeholder="Tap to enter number of staff/students"
+      min="1"
+    />
     <button onclick="calculateFormation()">Get Formation</button>
-    <p id="result"></p>
+    <pre id="result"></pre>
   </div>
+
+  <div class="add-to-home">
+    📱 To add this tool to your iPhone home screen:<br />
+    Tap <strong>Share</strong> <span style="font-size: 1.2em;">🔗</span> then choose <strong>"Add to Home Screen"</strong>.
+  </div>
+
   <footer>Made by Lachlan Inns</footer>
 
   <script>
@@ -131,21 +153,23 @@
 
     function calculateFormation() {
       const count = parseInt(document.getElementById('studentCount').value);
+      const resultEl = document.getElementById('result');
+
       if (!count || count < 9) {
-        document.getElementById('result').innerText = 'Please enter a number 9 or greater';
+        resultEl.innerText = 'Please enter a number 9 or greater';
         return;
       }
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        document.getElementById('result').innerText =
-          `Predefined Rows: ${formation.length}\n${formation.join(' - ')}`;
+        resultEl.innerText =
+          `Formation:\n\n${formation.length} rows\n${formation.join(' - ')}`;
         return;
       }
 
       const rowCount = getRowCount(count);
       if (!rowCount) {
-        document.getElementById('result').innerText = 'Please enter a number between 9 and 161+';
+        resultEl.innerText = 'Please enter a number between 9 and 161+';
         return;
       }
 
@@ -174,8 +198,8 @@
       }
 
       const resultText =
-        `Number of rows: ${rowCount}\n${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
-      document.getElementById('result').innerText = resultText;
+        `Formation:\n\n${rowCount} rows\n${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      resultEl.innerText = resultText;
     }
   </script>
 </body>
