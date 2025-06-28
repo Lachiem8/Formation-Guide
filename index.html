@@ -2,37 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Photo Formation Finder</title>
-
-  <!-- iPhone Home Screen Support -->
+  <link rel="manifest" href="manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Formation Tool" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png" />
-
-  <!-- Safari and Chrome color for status bar -->
-  <meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: dark)" />
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
     body {
       margin: 0;
-      padding-top: env(safe-area-inset-top);
-      padding-left: env(safe-area-inset-left);
-      padding-right: env(safe-area-inset-right);
       background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
-      box-sizing: border-box;
-      overflow-x: hidden;
       font-family: 'Montserrat', sans-serif;
       color: #f1f5f9;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding-bottom: 2rem;
+      padding: 1.5rem 1rem;
       min-height: 100vh;
     }
 
@@ -48,7 +37,6 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       padding: 1.5rem;
       width: 100%;
-      max-width: 100%;
       text-align: center;
     }
 
@@ -65,10 +53,9 @@
       font-size: 1rem;
       border: 2px solid #334155;
       border-radius: 8px;
-      outline: none;
+      background: #0f172a;
       color: #e2e8f0;
       margin-bottom: 0.7rem;
-      background: #0f172a;
     }
 
     input[type="number"]::placeholder {
@@ -84,12 +71,12 @@
       width: 80%;
       padding: 0.7rem;
       font-size: 1rem;
-      border: none;
       background: #3b82f6;
       color: #fff;
       font-weight: 700;
-      cursor: pointer;
+      border: none;
       border-radius: 8px;
+      cursor: pointer;
     }
 
     button:hover {
@@ -101,16 +88,13 @@
       font-size: 1rem;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
-      color: #ffffff;
       white-space: pre-line;
       line-height: 2.5;
-      text-decoration: none;
     }
 
     .underline {
       text-decoration: underline;
-      text-decoration-color: #ffffff;
-      text-underline-offset: 3px;
+      color: white;
     }
 
     .add-to-home {
@@ -122,7 +106,7 @@
     }
 
     .add-to-home img {
-      height: 1em;
+      height: 1.0em;
       vertical-align: middle;
       margin: 0 4px;
     }
@@ -155,7 +139,7 @@
     <div>📱 To add this tool to your iPhone home screen:</div>
     <div style="margin-top: 0.1rem;">
       Tap <strong>Share</strong>
-      <img src="share-icon.png" alt="Share icon" style="height: 1.3em; vertical-align: text-bottom; margin: 0 6px;">
+      <img src="share-icon.png" alt="Share icon">
       then choose <strong>"Add to Home Screen"</strong>.
     </div>
   </div>
@@ -192,7 +176,7 @@
       const resultEl = document.getElementById('result');
 
       if (!count) {
-        resultEl.innerHTML = `<span class="underline">Please enter a valid number</span>`;
+        resultEl.innerText = 'Please enter a valid number';
         return;
       }
 
@@ -209,7 +193,7 @@
 
       const rowCount = getRowCount(count);
       if (!rowCount) {
-        resultEl.innerHTML = `<span class="underline">Please enter a number between 9 and 161+</span>`;
+        resultEl.innerText = 'Please enter a number between 9 and 161+';
         return;
       }
 
@@ -237,7 +221,7 @@
         scanIns = count - total;
       }
 
-      resultEl.innerHTML = `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      resultEl.innerHTML = `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
     }
   </script>
 </body>
