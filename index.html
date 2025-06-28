@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Photo Formation Finder</title>
   <link rel="manifest" href="manifest.json" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Formation Tool" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png" />
+
+  <!-- iPhone Home Screen Support -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Formation Tool">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
 
     body {
       margin: 0;
@@ -21,8 +28,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 1.5rem 1rem;
+      justify-content: flex-start;
+      padding: env(safe-area-inset-top, 1.5rem) 1rem 1.5rem;
       min-height: 100vh;
+      height: 100vh;
+      box-sizing: border-box;
     }
 
     .logo {
@@ -37,6 +47,7 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       padding: 1.5rem;
       width: 100%;
+      max-width: 100%;
       text-align: center;
     }
 
@@ -53,9 +64,10 @@
       font-size: 1rem;
       border: 2px solid #334155;
       border-radius: 8px;
-      background: #0f172a;
+      outline: none;
       color: #e2e8f0;
       margin-bottom: 0.7rem;
+      background: #0f172a;
     }
 
     input[type="number"]::placeholder {
@@ -71,12 +83,12 @@
       width: 80%;
       padding: 0.7rem;
       font-size: 1rem;
+      border: none;
       background: #3b82f6;
       color: #fff;
       font-weight: 700;
-      border: none;
-      border-radius: 8px;
       cursor: pointer;
+      border-radius: 8px;
     }
 
     button:hover {
@@ -84,17 +96,13 @@
     }
 
     pre#result {
-      margin-top: 1.2rem;
+      margin-top: 1.5rem;
       font-size: 1rem;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
       white-space: pre-line;
       line-height: 2.5;
-    }
-
-    .underline {
-      text-decoration: underline;
-      color: white;
     }
 
     .add-to-home {
@@ -117,8 +125,14 @@
       color: #94a3b8;
       text-align: center;
     }
+
+    .underline {
+      text-decoration: underline;
+      text-decoration-color: #ffffff;
+    }
   </style>
 </head>
+<meta name="format-detection" content="telephone=no" />
 <body>
   <img src="Leading Image drop shadow.png" alt="Leading Image Logo" class="logo" />
 
@@ -139,7 +153,7 @@
     <div>📱 To add this tool to your iPhone home screen:</div>
     <div style="margin-top: 0.1rem;">
       Tap <strong>Share</strong>
-      <img src="share-icon.png" alt="Share icon">
+      <img src="share-icon.png" alt="Share icon" style="height: 1.3em; vertical-align: text-bottom; margin: 0 6px;">
       then choose <strong>"Add to Home Screen"</strong>.
     </div>
   </div>
@@ -176,24 +190,25 @@
       const resultEl = document.getElementById('result');
 
       if (!count) {
-        resultEl.innerText = 'Please enter a valid number';
+        resultEl.innerHTML = '<span class="underline">Please enter a valid number</span>';
         return;
       }
 
       if (count <= 8) {
-        resultEl.innerHTML = `<span class="underline">All Standing</span>`;
+        resultEl.innerHTML = '<span class="underline">All Standing</span>';
         return;
       }
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        resultEl.innerHTML = `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
+        resultEl.innerHTML =
+          `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
         return;
       }
 
       const rowCount = getRowCount(count);
       if (!rowCount) {
-        resultEl.innerText = 'Please enter a number between 9 and 161+';
+        resultEl.innerHTML = '<span class="underline">Please enter a number between 9 and 161+</span>';
         return;
       }
 
@@ -221,7 +236,9 @@
         scanIns = count - total;
       }
 
-      resultEl.innerHTML = `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      const resultText =
+        `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      resultEl.innerHTML = resultText;
     }
   </script>
 </body>
