@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Photo Formation Finder</title>
   <link rel="manifest" href="manifest.json" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -13,49 +13,22 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-    html, body {
+    body {
       margin: 0;
-      height: 100%;
       background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
       font-family: 'Montserrat', sans-serif;
       color: #f1f5f9;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
-
-    body {
-      padding: env(safe-area-inset-left) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-top);
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 1.5rem 1rem;
       min-height: 100vh;
-      position: relative;
     }
 
-    /* Fixed logo at the top center */
     .logo {
-      position: fixed;
-      top: env(safe-area-inset-top, 10px);
-      left: 50%;
-      transform: translateX(-50%);
       width: 180px;
       max-width: 80%;
-      z-index: 1000;
-    }
-
-    /* Wrapper holds the rest of content, pushed down to not overlap logo */
-    #wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 600px;
-      padding: 6rem 1rem 1.5rem; /* top padding to clear fixed logo */
-      box-sizing: border-box;
-      flex-grow: 1;
-      justify-content: center;
-      text-align: center;
+      margin-bottom: 1.5rem;
     }
 
     .container {
@@ -64,6 +37,7 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       padding: 1.5rem;
       width: 100%;
+      text-align: center;
     }
 
     h1 {
@@ -127,8 +101,8 @@
       margin-top: 2rem;
       font-size: 0.85rem;
       color: #cbd5e1;
-      max-width: 90%;
       text-align: center;
+      max-width: 90%;
     }
 
     .add-to-home img {
@@ -148,31 +122,29 @@
 <body>
   <img src="Leading Image drop shadow.png" alt="Leading Image Logo" class="logo" />
 
-  <div id="wrapper">
-    <div class="container">
-      <h1>Group Photo Formation Tool</h1>
-      <input
-        type="number"
-        inputmode="numeric"
-        id="studentCount"
-        placeholder="Tap to enter total number of Subjects"
-        min="1"
-      />
-      <button onclick="calculateFormation()">Get Formation</button>
-      <pre id="result"></pre>
-    </div>
-
-    <div class="add-to-home">
-      <div>📱 To add this tool to your iPhone home screen:</div>
-      <div style="margin-top: 0.1rem;">
-        Tap <strong>Share</strong>
-        <img src="share-icon.png" alt="Share icon" />
-        then choose <strong>"Add to Home Screen"</strong>.
-      </div>
-    </div>
-
-    <footer>Made by Lachlan Inns</footer>
+  <div class="container">
+    <h1>Group Photo Formation Tool</h1>
+    <input
+      type="number"
+      inputmode="numeric"
+      id="studentCount"
+      placeholder="Tap to enter total number of Subjects"
+      min="1"
+    />
+    <button onclick="calculateFormation()">Get Formation</button>
+    <pre id="result"></pre>
   </div>
+
+  <div class="add-to-home">
+    <div>📱 To add this tool to your iPhone home screen:</div>
+    <div style="margin-top: 0.1rem;">
+      Tap <strong>Share</strong>
+      <img src="share-icon.png" alt="Share icon">
+      then choose <strong>"Add to Home Screen"</strong>.
+    </div>
+  </div>
+
+  <footer>Made by Lachlan Inns</footer>
 
   <script>
     const predefinedFormations = {
