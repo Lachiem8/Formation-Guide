@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photo Formation Finder</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    body {
+      margin: 0;
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      font-family: 'Montserrat', sans-serif;
+      color: #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 1.5rem 1rem;
+      min-height: 100vh;
+    }
+    .container {
+      background: #1e293b;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      padding: 1.5rem;
+      width: 100%;
+      max-width: 100%; width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+      color: #60a5fa;
+    }
+    .subheading {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      margin-bottom: 1.2rem;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 2px solid #334155;
+      border-radius: 8px;
+      outline: none;
+      color: #e2e8f0;
+      margin-bottom: 0.7rem;
+      background: #0f172a;
+    }
+    input[type="number"]:focus {
+      border-color: #60a5fa;
+      background: #1e293b;
+    }
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: none;
+      background: #3b82f6;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+    button:hover {
+      background: #2563eb;
+    }
+    #result {
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      white-space: pre-wrap;
+      color: #f8fafc;
+      line-height: 1.6;
+    }
+    footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Class Photo Formation Tool</h1>
+    <div class="subheading">For Leading Image School Photos</div>
+    <input type="number" inputmode="numeric" id="studentCount" placeholder="Enter number of students" min="1" />
+    <button onclick="calculateFormation()">Get Formation</button>
+    <p id="result"></p>
+  </div>
+  <footer>Made by Lachlan Inns</footer>
+
+  <script>
+    const predefinedFormations = {
+      9: [5, 4], 10: [5, 5], 11: [6, 5], 12: [6, 6], 13: [5, 4, 4],
+      14: [5, 4, 5], 15: [6, 5, 4], 16: [6, 5, 5], 17: [6, 5, 6],
+      18: [7, 6, 5], 19: [7, 6, 6], 20: [7, 6, 7], 21: [7, 5, 5, 4],
+      22: [7, 6, 5, 4], 23: [7, 6, 5, 5], 24: [7, 6, 5, 6],
+      25: [7, 6, 6, 6], 26: [7, 6, 6, 7], 27: [7, 6, 7, 7],
+      28: [8, 7, 6, 7], 29: [8, 7, 7, 7], 30: [8, 7, 8, 7],
+      31: [8, 7, 8, 8], 32: [9, 8, 7, 8], 33: [9, 8, 8, 8],
+      34: [9, 8, 9, 8], 35: [9, 9, 9, 8], 36: [10, 9, 8, 9],
+      37: [10, 9, 9, 9], 38: [10, 9, 10, 9], 39: [10, 9, 8, 7, 7],
+      40: [10, 9, 8, 8, 8], 41: [9, 8, 7, 8, 9], 42: [10, 9, 8, 7, 8],
+      43: [10, 9, 8, 8, 8], 44: [10, 9, 8, 9, 8]
+    };
+
+    function getRowCount(count) {
+      if (count >= 161) return 10;
+      if (count >= 131) return 9;
+      if (count >= 101) return 8;
+      if (count >= 80) return 7;
+      if (count >= 66) return 6;
+      if (count >= 45) return 5;
+      return null;
+    }
+
+    function calculateFormation() {
+      const count = parseInt(document.getElementById('studentCount').value);
+      if (!count || count < 9) {
+        document.getElementById('result').innerText = 'Please enter a number 9 or greater';
+        return;
+      }
+
+      if (predefinedFormations[count]) {
+        const formation = predefinedFormations[count];
+        document.getElementById('result').innerText =
+          `Predefined Rows: ${formation.length}\n${formation.join(' - ')}`;
+        return;
+      }
+
+      const rowCount = getRowCount(count);
+      if (!rowCount) {
+        document.getElementById('result').innerText = 'Please enter a number between 9 and 161+';
+        return;
+      }
+
+      let avg = count / rowCount;
+      let avgDisplay = avg.toFixed(2);
+      let high = Math.round(avg);
+      let low = high - 1;
+      let formation = [];
+
+      for (let i = 0; i < rowCount; i++) {
+        formation.push(i % 2 === 0 ? high : low);
+      }
+
+      let total = formation.reduce((a, b) => a + b, 0);
+      let scanIns = count - total;
+
+      while (scanIns < 0 && high > 1) {
+        high -= 1;
+        low = high - 1;
+        formation = [];
+        for (let i = 0; i < rowCount; i++) {
+          formation.push(i % 2 === 0 ? high : low);
+        }
+        total = formation.reduce((a, b) => a + b, 0);
+        scanIns = count - total;
+      }
+
+      const resultText =
+        `Number of rows: ${rowCount}\n${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      document.getElementById('result').innerText = resultText;
+    }
+  </script>
+</body>
+</html>
