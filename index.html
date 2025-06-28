@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="format-detection" content="telephone=no" />
   <title>Photo Formation Finder</title>
   <link rel="manifest" href="manifest.json" />
 
   <!-- iPhone Home Screen Support -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Formation Tool" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Formation Tool">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" sizes="180x180" href="homescreenimage.png">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -91,10 +90,7 @@
       background: #2563eb;
     }
 
-    .result-display {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+    pre#result {
       margin-top: 1.2rem;
       font-size: 1rem;
       font-weight: 700;
@@ -102,18 +98,6 @@
       color: #ffffff;
       white-space: pre-line;
       line-height: 1.5;
-    }
-
-    .result-top {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      margin-bottom: 0.4rem;
-    }
-
-    .result-formation {
-      width: 100%;
-      margin-top: 0.5rem;
     }
 
     .add-to-home {
@@ -125,21 +109,20 @@
     }
 
     .add-to-home img {
-      height: 1em;
-      vertical-align: text-bottom;
-      margin: 0 6px;
-      position: relative;
-      top: -1px;
+      height: 1.0em;
+      vertical-align: middle;
+      margin: 0 4px;
     }
 
     footer {
-      margin-top: 3rem;
+      margin-top: 2rem;
       font-size: 0.75rem;
       color: #94a3b8;
       text-align: center;
     }
   </style>
 </head>
+  <meta name="format-detection" content="telephone=no">
 <body>
   <img src="Leading Image drop shadow.png" alt="Leading Image Logo" class="logo" />
 
@@ -149,20 +132,19 @@
       type="number"
       inputmode="numeric"
       id="studentCount"
-      placeholder="Tap to enter number of staff/students"
+      placeholder="Tap to enter amount of Subjects"
       min="1"
     />
     <button onclick="calculateFormation()">Get Formation</button>
-    <div id="result" class="result-display"></div>
+    <pre id="result"></pre>
   </div>
 
   <div class="add-to-home">
-    <div>📱 To add this tool to your iPhone home screen:</div>
-    <div style="margin-top: 0.1rem;">
-      Tap <strong>Share</strong>
-      <img src="share-icon.png" alt="Share icon">
-      then choose <strong>"Add to Home Screen"</strong>.
-    </div>
+  <div>📱 To add this tool to your iPhone home screen:</div>
+  <div style="margin-top: 0.1rem;">
+    Tap <strong>Share</strong>
+    <img src="share-icon.png" alt="Share icon" style="height: 1.3em; vertical-align: text-bottom; margin: 0 6px;">
+    then choose <strong>"Add to Home Screen"</strong>.
   </div>
 
   <footer>Made by Lachlan Inns</footer>
@@ -203,13 +185,8 @@
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        resultEl.innerHTML = `
-          <div class="result-top">
-            <div>Total Subjects: ${count}</div>
-            <div>${formation.length} Rows</div>
-          </div>
-          <div class="result-formation">Formation: ${formation.join(' - ')}</div>
-        `;
+        resultEl.innerText =
+          ${formation.length} Rows\nFormation: ${formation.join(' - ')};
         return;
       }
 
@@ -243,17 +220,9 @@
         scanIns = count - total;
       }
 
-      resultEl.innerHTML = `
-        <div class="result-top">
-          <div>Total Subjects: ${count}</div>
-          <div>${rowCount} Rows</div>
-        </div>
-        <div class="result-formation">
-          Formation: ${formation.join(' - ')}<br>
-          Scan In(s): ${scanIns}<br>
-          Average per row: ${avgDisplay}
-        </div>
-      `;
+      const resultText =
+        ${rowCount} Rows\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay};
+      resultEl.innerText = resultText;
     }
   </script>
 </body>
