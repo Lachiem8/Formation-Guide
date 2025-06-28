@@ -100,11 +100,12 @@
       line-height: 2.5;
     }
 
-    /* Underline style for rows count line */
+    /* Underline style with border-bottom for precise positioning */
     .underline {
-      text-decoration: underline;
       display: inline-block;
-      margin-bottom: 0.3em; /* some space below underline */
+      border-bottom: 2px solid #60a5fa;
+      padding-bottom: 0.12em; /* Adjust to move underline lower/higher */
+      margin-bottom: 0.3em;   /* Space below underline */
     }
 
     .add-to-home {
@@ -168,11 +169,10 @@
       34: [9, 8, 9, 8], 35: [9, 9, 9, 8], 36: [10, 9, 8, 9],
       37: [10, 9, 9, 9], 38: [10, 9, 10, 9], 39: [10, 9, 8, 7, 7],
       40: [10, 9, 8, 8, 8], 41: [9, 8, 7, 8, 9], 42: [10, 9, 8, 7, 8],
-      43: [10, 9, 8, 8, 8], 44: [10, 9, 8, 9, 8], 63: [11, 10, 11, 10, 11, 10]
+      43: [10, 9, 8, 8, 8], 44: [10, 9, 8, 9, 8]
     };
 
     function getRowCount(count) {
-      if (count === 63) return 6;
       if (count >= 161) return 10;
       if (count >= 131) return 9;
       if (count >= 101) return 8;
@@ -192,13 +192,12 @@
       }
 
       if (count <= 8) {
-        resultEl.innerText = 'All Standing';
+        resultEl.innerHTML = '<span class="underline">All Standing</span>';
         return;
       }
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        // Use a span with class underline for rows line
         const resultText =
           `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
         resultEl.innerHTML = resultText;
@@ -242,4 +241,3 @@
   </script>
 </body>
 </html>
-
