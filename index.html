@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Photo Formation Finder</title>
   <link rel="manifest" href="manifest.json" />
 
@@ -15,24 +15,30 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-    html, body {
-      height: 100%;
-      width: 100%;
+    html {
+      background-color: #0f172a;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
+      z-index: -1;
     }
 
     body {
       margin: 0;
-      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 110%);
+      box-sizing: border-box;
+      overflow-x: hidden;
       font-family: 'Montserrat', sans-serif;
       color: #f1f5f9;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: env(safe-area-inset-top, 1.5rem) 1rem 1.5rem;
+      padding: 1.5rem 1rem;
       min-height: 100vh;
-      height: 100vh;
-      box-sizing: border-box;
     }
 
     .logo {
@@ -96,13 +102,15 @@
     }
 
     pre#result {
-      margin-top: 1.5rem;
+      margin-top: 1.2rem;
       font-size: 1rem;
       font-weight: 700;
       font-family: 'Montserrat', sans-serif;
       color: #ffffff;
       white-space: pre-line;
       line-height: 2.5;
+      text-decoration-color: white;
+      text-decoration-thickness: auto;
     }
 
     .add-to-home {
@@ -124,11 +132,6 @@
       font-size: 0.75rem;
       color: #94a3b8;
       text-align: center;
-    }
-
-    .underline {
-      text-decoration: underline;
-      text-decoration-color: #ffffff;
     }
   </style>
 </head>
@@ -190,25 +193,24 @@
       const resultEl = document.getElementById('result');
 
       if (!count) {
-        resultEl.innerHTML = '<span class="underline">Please enter a valid number</span>';
+        resultEl.innerHTML = '<u>All Standing</u>';
         return;
       }
 
       if (count <= 8) {
-        resultEl.innerHTML = '<span class="underline">All Standing</span>';
+        resultEl.innerHTML = '<u>All Standing</u>';
         return;
       }
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        resultEl.innerHTML =
-          `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
+        resultEl.innerHTML = `<u>${formation.length} Rows</u>\nFormation: ${formation.join(' - ')}`;
         return;
       }
 
       const rowCount = getRowCount(count);
       if (!rowCount) {
-        resultEl.innerHTML = '<span class="underline">Please enter a number between 9 and 161+</span>';
+        resultEl.innerText = 'Please enter a number between 9 and 161+';
         return;
       }
 
@@ -236,9 +238,8 @@
         scanIns = count - total;
       }
 
-      const resultText =
-        `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
-      resultEl.innerHTML = resultText;
+      resultEl.innerHTML =
+        `<u>${rowCount} Rows</u>\nFormation: ${formation.join(' - ')}\n\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
     }
   </script>
 </body>
