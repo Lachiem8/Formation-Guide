@@ -87,13 +87,14 @@
       margin-top: 1.2rem;
       font-size: 1rem;
       font-weight: 700;
-      line-height: 2.5;
+      font-family: 'Montserrat', sans-serif;
       white-space: pre-line;
+      line-height: 2.5;
     }
 
     .underline {
       text-decoration: underline;
-      text-decoration-color: white;
+      color: white;
     }
 
     .add-to-home {
@@ -180,14 +181,13 @@
       }
 
       if (count <= 8) {
-        resultEl.innerHTML = '<span class="underline">All Standing</span>';
+        resultEl.innerHTML = `<span class="underline">All Standing</span>`;
         return;
       }
 
       if (predefinedFormations[count]) {
         const formation = predefinedFormations[count];
-        resultEl.innerHTML =
-          `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
+        resultEl.innerHTML = `<span class="underline">${formation.length} Rows</span>\nFormation: ${formation.join(' - ')}`;
         return;
       }
 
@@ -221,8 +221,7 @@
         scanIns = count - total;
       }
 
-      resultEl.innerHTML =
-        `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
+      resultEl.innerHTML = `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
     }
   </script>
 </body>
