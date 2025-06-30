@@ -228,6 +228,19 @@
 
       resultEl.innerHTML = `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
     }
+
+    // Auto-scroll to top unless user scrolls manually
+    let userScrolled = false;
+
+    window.addEventListener('scroll', () => {
+      userScrolled = true;
+    });
+
+    setInterval(() => {
+      if (!userScrolled) {
+        window.scrollTo(0, 0);
+      }
+    }, 100);
   </script>
 </body>
 </html>
