@@ -27,6 +27,7 @@
       padding-left: 1rem;
       padding-right: 1rem;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     .logo {
@@ -229,18 +230,32 @@
       resultEl.innerHTML = `<span class="underline">${rowCount} Rows</span>\nFormation: ${formation.join(' - ')}\nScan In(s): ${scanIns}\nAverage per row: ${avgDisplay}`;
     }
 
-    // Auto-scroll to top unless user scrolls manually
-    let userScrolled = false;
+    // Scroll logic to prevent mobile keyboard bump
+    window.scrollTo(0, 0);
+    let userManuallyScrolled = false;
 
     window.addEventListener('scroll', () => {
-      userScrolled = true;
+      userManuallyScrolled = true;
     });
 
-    setInterval(() => {
-      if (!userScrolled) {
+    const scrollInterval = setInterval(() => {
+      if (!userManuallyScrolled) {
         window.scrollTo(0, 0);
+      } else {
+        clearInterval(scrollInterval);
       }
     }, 100);
+
+    const input = document.getElementById('studentCount');
+    input.addEventListener('focus', () => {
+      userManuallyScrolled = true;
+    });
+    input.addEventListener('blur', () => {
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        userManuallyScrolled = false;
+      }, 100);
+    });
   </script>
 </body>
 </html>
